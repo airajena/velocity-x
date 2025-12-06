@@ -1,0 +1,76 @@
+# Compiled class files
+*.class
+
+# Log files
+*.log
+logs/
+
+# Package Files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IDE
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Spring Boot
+.springBeans
+spring-boot-devtools.properties
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Application properties with secrets
+application-local.properties
+application-dev.properties
+application-prod.properties
+
+# Docker
+docker-compose.override.yml
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Test coverage
+.jacoco/
+*.exec
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~.nib
