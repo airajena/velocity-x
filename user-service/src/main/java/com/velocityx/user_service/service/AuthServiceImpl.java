@@ -47,7 +47,7 @@ public class AuthServiceImpl implements AuthService {
     @Value("${app.security.lock-duration-minutes:30}")
     private long lockDurationMinutes;
 
-    @Value("${app.security.admin-key:CHANGE_THIS_ADMIN_SECRET_KEY}")
+    @Value("${app.security.admin-key:ADMIN}")
     private String adminSecretKey;
 
     @Override

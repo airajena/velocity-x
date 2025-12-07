@@ -199,7 +199,7 @@ services:
       
       # Security
       APP_JWT_SECRET: your-production-secret-key-minimum-32-characters-change-in-production
-      APP_SECURITY_ADMIN_KEY: your-admin-secret-key
+      APP_SECURITY_ADMIN_KEY: ADMIN
       
       # Observability
       MANAGEMENT_ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
