@@ -1,0 +1,18 @@
+package com.velocityx.reward_service.enums;
+
+public enum RewardEventType {
+    EARN_REQUESTED,
+    EARN_COMPLETED,
+    EARN_FAILED,
+    HOLD_REQUESTED,
+    HOLD_COMPLETED,
+    HOLD_FAILED,
+    CAPTURE_REQUESTED,
+    CAPTURE_COMPLETED,
+    CAPTURE_FAILED,
+    RELEASE_REQUESTED,
+    RELEASE_COMPLETED,
+    REFUND_REQUESTED,
+    REFUND_COMPLETED,
+    ADJUSTMENT
+}
