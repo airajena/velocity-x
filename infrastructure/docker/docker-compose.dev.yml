@@ -1,0 +1,62 @@
+version: '3.8'
+
+# Development overrides for docker-compose.yml
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  postgres:
+    environment:
+      POSTGRES_DB: velocityx_dev
+    volumes:
+      - ./dev-data/postgres:/var/lib/postgresql/data
+
+  redis:
+    volumes:
+      - ./dev-data/redis:/data
+
+  api-gateway:
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - LOGGING_LEVEL_ROOT=DEBUG
+    volumes:
+      - ../../api-gateway/target:/app
+
+  user-service:
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - LOGGING_LEVEL_ROOT=DEBUG
+      - SPRING_JPA_SHOW_SQL=true
+    volumes:
+      - ../../user-service/target:/app
+
+  transaction-service:
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - LOGGING_LEVEL_ROOT=DEBUG
+      - SPRING_JPA_SHOW_SQL=true
+    volumes:
+      - ../../transaction-service/target:/app
+
+  wallet-service:
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - LOGGING_LEVEL_ROOT=DEBUG
+      - SPRING_JPA_SHOW_SQL=true
+    volumes:
+      - ../../wallet-service/target:/app
+
+  reward-service:
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - LOGGING_LEVEL_ROOT=DEBUG
+      - SPRING_JPA_SHOW_SQL=true
+    volumes:
+      - ../../reward-service/target:/app
+
+  notification-service:
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+      - LOGGING_LEVEL_ROOT=DEBUG
+      - SPRING_JPA_SHOW_SQL=true
+    volumes:
+      - ../../notification-service/target:/app
