@@ -1,0 +1,70 @@
+version: '3.8'
+
+# Standalone database setup
+# Usage: docker-compose -f docker-compose.databases.yml up
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: velocityx-postgres-standalone
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_MULTIPLE_DATABASES: velocityx_users,velocityx_transactions,velocityx_wallet,velocityx_rewards,velocityx_notifications
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - velocityx-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: velocityx-redis-standalone
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - velocityx-network
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: velocityx-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@velocityx.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - velocityx-network
+    restart: unless-stopped
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: velocityx-redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - velocityx-network
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+
+networks:
+  velocityx-network:
+    external: true
