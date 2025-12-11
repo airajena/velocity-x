@@ -1,0 +1,66 @@
+# VelocityX - Root .gitignore
+# Prevent infrastructure files in service directories
+
+# ==================== INFRASTRUCTURE FILES ====================
+# These should ONLY exist in infrastructure/ folder
+
+# Docker Compose (except in infrastructure/)
+**/docker-compose.yml
+**/docker-compose.*.yml
+!infrastructure/**/docker-compose*.yml
+
+# Monitoring configs (except in infrastructure/)
+**/prometheus.yml
+**/prometheus/
+**/grafana/
+!infrastructure/**/prometheus.yml
+!infrastructure/**/prometheus/
+!infrastructure/**/grafana/
+
+# Logging configs (except in infrastructure/)
+**/logstash.conf
+**/logstash/
+**/elasticsearch/
+**/kibana/
+!infrastructure/**/logstash.conf
+!infrastructure/**/logstash/
+!infrastructure/**/elasticsearch/
+!infrastructure/**/kibana/
+
+# ==================== BUILD ARTIFACTS ====================
+**/target/
+**/build/
+**/dist/
+**/.gradle/
+**/node_modules/
+
+# ==================== IDE ====================
+**/.idea/
+**/.vscode/
+**/*.iml
+**/.DS_Store
+
+# ==================== LOGS ====================
+**/logs/
+**/*.log
+
+# ==================== ENVIRONMENT ====================
+**/.env
+!infrastructure/docker/.env.example
+
+# ==================== TEMPORARY FILES ====================
+**/tmp/
+**/temp/
+**/*.tmp
+**/*.swp
+**/*.swo
+
+# ==================== ALLOWED SERVICE FILES ====================
+# These are OK in service directories
+!**/Dockerfile
+!**/pom.xml
+!**/package.json
+!**/application.properties
+!**/application.yml
+!**/wait-for-it.sh
+!**/src/
