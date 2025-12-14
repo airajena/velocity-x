@@ -9,7 +9,7 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_MULTIPLE_DATABASES: velocityx_users,velocityx_transactions,velocityx_wallet,velocityx_rewards,velocityx_notifications
+      POSTGRES_MULTIPLE_DATABASES: velocityx_users,velocityx_transactions,velocityx_wallet,velocityx_rewards,velocityx_notifications,velocityx_fraud
     ports:
       - "5432:5432"
     volumes:
@@ -288,6 +288,40 @@ services:
       - velocityx-network
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8085/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  fraud-detection-service:
+    build:
+      context: ../../fraud-detection-service
+      dockerfile: Dockerfile
+    container_name: velocityx-fraud-detection-service
+    ports:
+      - "8086:8086"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/velocityx_fraud
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    networks:
+      - velocityx-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8086/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3
