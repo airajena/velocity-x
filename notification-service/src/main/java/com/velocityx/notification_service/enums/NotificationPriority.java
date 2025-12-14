@@ -32,6 +32,7 @@ public enum NotificationPriority {
             case TRANSACTION_SUCCESS, TRANSACTION_FAILED, PAYMENT_RECEIVED -> P0;
             case ACCOUNT_CREATED, PASSWORD_RESET, EMAIL_VERIFICATION -> P1;
             case MARKETING, NEWSLETTER, PROMOTIONAL -> P2;
+            default -> P1; // Default to P1 for any other types
         };
     }
 }
