@@ -57,7 +57,7 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
     
     private HttpStatus determineHttpStatus(Throwable ex) {
         if (ex instanceof ResponseStatusException) {
-            return ((ResponseStatusException) ex).getStatusCode();
+            return HttpStatus.valueOf(((ResponseStatusException) ex).getStatusCode().value());
         } else if (ex instanceof IllegalArgumentException) {
             return HttpStatus.BAD_REQUEST;
         } else if (ex instanceof SecurityException) {

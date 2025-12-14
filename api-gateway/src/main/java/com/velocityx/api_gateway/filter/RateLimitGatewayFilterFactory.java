@@ -16,15 +16,15 @@ import java.time.Duration;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-@RequiredArgsConstructor
 @Slf4j
 public class RateLimitGatewayFilterFactory extends AbstractGatewayFilterFactory<RateLimitGatewayFilterFactory.Config> {
     
     private final ReactiveRedisTemplate<String, String> redisTemplate;
     private final ConcurrentHashMap<String, Bucket> cache = new ConcurrentHashMap<>();
     
-    public RateLimitGatewayFilterFactory() {
+    public RateLimitGatewayFilterFactory(@org.springframework.beans.factory.annotation.Qualifier("reactiveRedisTemplate") ReactiveRedisTemplate<String, String> redisTemplate) {
         super(Config.class);
+        this.redisTemplate = redisTemplate;
     }
     
     @Override
