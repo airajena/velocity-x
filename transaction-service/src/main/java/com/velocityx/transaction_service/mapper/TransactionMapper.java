@@ -24,11 +24,6 @@ public interface TransactionMapper {
     @Mapping(target = "processingStartedAt", ignore = true)
     @Mapping(target = "completedAt", ignore = true)
     @Mapping(target = "events", ignore = true)
-    @Mapping(target = "createdAt", ignore = true)
-    @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "createdBy", ignore = true)
-    @Mapping(target = "updatedBy", ignore = true)
-    @Mapping(target = "version", ignore = true)
     Transaction toEntity(CreateTransactionRequest request);
     
     TransactionResponse toDto(Transaction transaction);
