@@ -162,10 +162,11 @@ public class FraudDetectionService {
         List<String> riskFactors = null;
         try {
             if (fraudCheck.getRiskFactors() != null) {
-                riskFactors = objectMapper.readValue(
+                List<RiskScore.RiskFactor> factors = objectMapper.readValue(
                         fraudCheck.getRiskFactors(), 
                         objectMapper.getTypeFactory().constructCollectionType(List.class, RiskScore.RiskFactor.class)
-                ).stream()
+                );
+                riskFactors = factors.stream()
                 .map(rf -> rf.getFactorType() + ": " + rf.getDescription())
                 .collect(Collectors.toList());
             }
